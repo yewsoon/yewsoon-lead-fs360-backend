@@ -30,7 +30,6 @@ router.get("/revenue", asyncHandler( async function(req, res, next){
                         chartColors.green,
                         chartColors.grey],
                     data: [5, 3, 4, 6, 4, 5, 7, 9, 8]
-                    
                 }
             ],
         },

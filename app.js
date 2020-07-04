@@ -1,3 +1,4 @@
+require('dotenv').config()
 var createError = require('http-errors');
 var express = require('express');
 var cors = require('cors');
@@ -7,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var dashboardRouter = require('./routes/v1/dashboard');
+var productRouter = require('./routes/v1/product');
 
 var app = express();
 
@@ -25,6 +27,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/v1/dashboard', dashboardRouter);
+app.use('/v1/product', productRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
