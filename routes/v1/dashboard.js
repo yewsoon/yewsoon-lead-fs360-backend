@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const asyncHandler = require("express-async-handler");
+const fb = require('../../services/firebase');
 
 const chartColors = {
     red: 'rgb(255, 99, 132)',
@@ -11,6 +12,19 @@ const chartColors = {
     purple: 'rgb(153, 102, 255)',
     grey: 'rgb(201, 203, 207)'
 };
+
+router.use(asyncHandler(async function(req, res, next){
+    const headers = req.headers;
+    try{
+        if(!fb.verifyIdToken(headers.id_token, headers.uid)){
+            return res.json({status:"Access is prohibited"})
+        }
+        next();
+    }catch(err){
+        console.error('[Users API Middleware] : ${err}')
+        return res.json({status:"Access is prohibited"})
+    }
+})),
 
 router.get("/revenue", asyncHandler( async function(req, res, next){
     return res.json({
